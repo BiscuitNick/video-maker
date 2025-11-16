@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { useFileUpload } from '@/hooks/useFileUpload';
-import { UploadMediaResponse } from '@/types';
+import type { UploadMediaResponse } from '@/types';
 import { cn } from '@/lib/utils';
 import { Upload, Link as LinkIcon, X, CheckCircle, AlertCircle } from 'lucide-react';
 

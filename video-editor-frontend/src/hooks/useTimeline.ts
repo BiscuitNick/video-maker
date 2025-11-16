@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
-import { TimelineState, Track, TimelineItem } from '../types/timeline';
+import type { TimelineState, Track, TimelineItem } from '../types/timeline';
 
 const INITIAL_ZOOM = 100; // 100 pixels per second
 const MIN_ZOOM = 20;

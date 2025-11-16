@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
-import { UseExportReturn } from '@/hooks/useExport';
-import { ExportFormat, ExportResolution, ExportQuality } from '@/types/editor';
+import type { UseExportReturn } from '@/hooks/useExport';
+import type { ExportFormat, ExportResolution, ExportQuality } from '@/types/editor';
 
 interface ExportControlsProps {
   exportHook: UseExportReturn;

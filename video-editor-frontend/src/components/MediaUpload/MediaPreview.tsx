@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MediaItem } from '@/types';
+import type { MediaItem } from '@/types';
 import { cn } from '@/lib/utils';
 
 interface MediaPreviewProps {

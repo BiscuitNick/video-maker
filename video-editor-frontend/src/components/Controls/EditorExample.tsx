@@ -12,7 +12,7 @@ import { VideoPreview, PlayheadOverlay } from './VideoPreview';
 import { TimelineZoom, useZoomKeyboardShortcuts } from './TimelineZoom';
 import { ExportControls } from './ExportControls';
 import { usePlayback, useClipEditor, useExport, useZoom } from '@/hooks';
-import { Clip, VideoClip, ImageClip } from '@/types/editor';
+import type { Clip, VideoClip, ImageClip } from '@/types/editor';
 
 export function EditorExample() {
   // Sample timeline data (replace with your actual timeline state)

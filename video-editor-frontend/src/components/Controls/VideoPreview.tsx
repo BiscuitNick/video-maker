@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Clip, VideoClip, ImageClip, TextClip } from '@/types/editor';
+import type { Clip, VideoClip, ImageClip, TextClip } from '@/types/editor';
 
 interface VideoPreviewProps {
   clips: Clip[];

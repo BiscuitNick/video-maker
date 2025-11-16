@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MediaUpload } from './MediaUpload';
 import { MediaLibrary } from './MediaLibrary';
 import { useMediaLibrary } from '@/hooks/useMediaLibrary';
-import { MediaItem, UploadMediaResponse } from '@/types';
+import type { MediaItem, UploadMediaResponse } from '@/types';
 
 export function MediaUploadExample() {
   const {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { MediaItem } from '@/types';
+import type { MediaItem } from '@/types';
 import { MediaPreview } from './MediaPreview';
 import { cn } from '@/lib/utils';
 import { Search, Trash2, Film, Image as ImageIcon, Music, Grid3x3, List } from 'lucide-react';

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { Clip, VideoClip, AudioClip, TimeRange } from '@/types/editor';
+import type { Clip, VideoClip, AudioClip, TimeRange } from '@/types/editor';
 
 export interface UseClipEditorReturn {
   selectedClip: Clip | null;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
-import { UsePlaybackReturn } from '@/hooks/usePlayback';
+import type { UsePlaybackReturn } from '@/hooks/usePlayback';
 
 interface PlaybackControlsProps {
   playback: UsePlaybackReturn;

@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
-import { UseClipEditorReturn } from '@/hooks/useClipEditor';
-import { VideoClip, AudioClip } from '@/types/editor';
+import type { UseClipEditorReturn } from '@/hooks/useClipEditor';
+import type { VideoClip, AudioClip } from '@/types/editor';
 
 interface ClipControlsProps {
   clipEditor: UseClipEditorReturn;

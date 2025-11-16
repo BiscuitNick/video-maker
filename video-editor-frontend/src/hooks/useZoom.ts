@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { ZoomState } from '@/types/editor';
+import type { ZoomState } from '@/types/editor';
 
 export interface UseZoomReturn {
   zoomState: ZoomState;

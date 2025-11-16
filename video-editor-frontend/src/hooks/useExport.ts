@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { ExportSettings, ExportProgress } from '@/types/editor';
+import type { ExportSettings, ExportProgress } from '@/types/editor';
 
 export interface UseExportReturn {
   exportSettings: ExportSettings;

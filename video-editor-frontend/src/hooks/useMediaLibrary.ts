@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { MediaItem, ApiResponse } from '@/types';
+import type { MediaItem, ApiResponse } from '@/types';
 
 interface UseMediaLibraryOptions {
   autoLoad?: boolean;

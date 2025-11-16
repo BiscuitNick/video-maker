@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { PlaybackState } from '@/types/editor';
+import type { PlaybackState } from '@/types/editor';
 
 export interface UsePlaybackReturn {
   playbackState: PlaybackState;

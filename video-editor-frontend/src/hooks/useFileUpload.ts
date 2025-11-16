@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { MediaUploadProgress, UploadMediaResponse, ApiResponse } from '@/types';
+import type { MediaUploadProgress, UploadMediaResponse, ApiResponse } from '@/types';
 
 interface UseFileUploadOptions {
   onSuccess?: (media: UploadMediaResponse) => void;
