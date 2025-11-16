@@ -16,7 +16,7 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
     allowedTypes = ['video/*', 'image/*'],
   } = options;
 
-  const [uploads, setUploads] = useState<Map<string, MediaUploadProgress>>(new Map());
+  const [uploads, setUploads] = useState<MediaUploadProgress[]>([]);
   const [isUploading, setIsUploading] = useState(false);
 
   const validateFile = useCallback((file: File): string | null => {
@@ -49,7 +49,7 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
     }
 
     const fileId = Date.now() + '-' + file.name;
-    
+
     const initialProgress: MediaUploadProgress = {
       fileId,
       fileName: file.name,
@@ -57,14 +57,15 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
       status: 'pending',
     };
 
-    setUploads(prev => new Map(prev).set(fileId, initialProgress));
+    setUploads(prev => [...prev, initialProgress]);
     setIsUploading(true);
 
     try {
-      setUploads(prev => new Map(prev).set(fileId, {
-        ...initialProgress,
-        status: 'uploading',
-      }));
+      setUploads(prev => prev.map(upload =>
+        upload.fileId === fileId
+          ? { ...upload, status: 'uploading' as const }
+          : upload
+      ));
 
       const formData = new FormData();
       formData.append('file', file);
@@ -84,45 +85,43 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
         throw new Error(result.error || 'Upload failed');
       }
 
-      setUploads(prev => new Map(prev).set(fileId, {
-        ...initialProgress,
-        progress: 100,
-        status: 'completed',
-      }));
+      setUploads(prev => prev.map(upload =>
+        upload.fileId === fileId
+          ? { ...upload, progress: 100, status: 'completed' as const }
+          : upload
+      ));
 
       onSuccess?.(result.data);
-      
+
       setTimeout(() => {
         setUploads(prev => {
-          const next = new Map(prev);
-          next.delete(fileId);
-          if (next.size === 0) {
+          const filtered = prev.filter(upload => upload.fileId !== fileId);
+          if (filtered.length === 0) {
             setIsUploading(false);
           }
-          return next;
+          return filtered;
         });
       }, 2000);
 
       return result.data;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Upload failed';
-      
-      setUploads(prev => new Map(prev).set(fileId, {
-        ...initialProgress,
-        status: 'failed',
-        error: errorMessage,
-      }));
+
+      setUploads(prev => prev.map(upload =>
+        upload.fileId === fileId
+          ? { ...upload, status: 'failed' as const, error: errorMessage }
+          : upload
+      ));
 
       onError?.(errorMessage);
-      
+
       setTimeout(() => {
         setUploads(prev => {
-          const next = new Map(prev);
-          next.delete(fileId);
-          if (next.size === 0) {
+          const filtered = prev.filter(upload => upload.fileId !== fileId);
+          if (filtered.length === 0) {
             setIsUploading(false);
           }
-          return next;
+          return filtered;
         });
       }, 3000);
 
@@ -137,7 +136,7 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
 
   const uploadFromUrl = useCallback(async (url: string): Promise<UploadMediaResponse | null> => {
     const fileId = 'url-' + Date.now();
-    
+
     const initialProgress: MediaUploadProgress = {
       fileId,
       fileName: url,
@@ -145,14 +144,15 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
       status: 'pending',
     };
 
-    setUploads(prev => new Map(prev).set(fileId, initialProgress));
+    setUploads(prev => [...prev, initialProgress]);
     setIsUploading(true);
 
     try {
-      setUploads(prev => new Map(prev).set(fileId, {
-        ...initialProgress,
-        status: 'uploading',
-      }));
+      setUploads(prev => prev.map(upload =>
+        upload.fileId === fileId
+          ? { ...upload, status: 'uploading' as const }
+          : upload
+      ));
 
       const response = await fetch('/api/media/upload-url', {
         method: 'POST',
@@ -172,45 +172,43 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
         throw new Error(result.error || 'Upload failed');
       }
 
-      setUploads(prev => new Map(prev).set(fileId, {
-        ...initialProgress,
-        progress: 100,
-        status: 'completed',
-      }));
+      setUploads(prev => prev.map(upload =>
+        upload.fileId === fileId
+          ? { ...upload, progress: 100, status: 'completed' as const }
+          : upload
+      ));
 
       onSuccess?.(result.data);
-      
+
       setTimeout(() => {
         setUploads(prev => {
-          const next = new Map(prev);
-          next.delete(fileId);
-          if (next.size === 0) {
+          const filtered = prev.filter(upload => upload.fileId !== fileId);
+          if (filtered.length === 0) {
             setIsUploading(false);
           }
-          return next;
+          return filtered;
         });
       }, 2000);
 
       return result.data;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Upload failed';
-      
-      setUploads(prev => new Map(prev).set(fileId, {
-        ...initialProgress,
-        status: 'failed',
-        error: errorMessage,
-      }));
+
+      setUploads(prev => prev.map(upload =>
+        upload.fileId === fileId
+          ? { ...upload, status: 'failed' as const, error: errorMessage }
+          : upload
+      ));
 
       onError?.(errorMessage);
-      
+
       setTimeout(() => {
         setUploads(prev => {
-          const next = new Map(prev);
-          next.delete(fileId);
-          if (next.size === 0) {
+          const filtered = prev.filter(upload => upload.fileId !== fileId);
+          if (filtered.length === 0) {
             setIsUploading(false);
           }
-          return next;
+          return filtered;
         });
       }, 3000);
 
@@ -219,12 +217,12 @@ export function useFileUpload(options: UseFileUploadOptions = {}) {
   }, [onSuccess, onError]);
 
   const clearUploads = useCallback(() => {
-    setUploads(new Map());
+    setUploads([]);
     setIsUploading(false);
   }, []);
 
   return {
-    uploads: Array.from(uploads.values()),
+    uploads,
     isUploading,
     uploadFile,
     uploadFiles,
